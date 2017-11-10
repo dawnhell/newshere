@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">NewsHere</string>
+    <string name="login_text">Login</string>
+    <string name="exit_text">Exit</string>
+    <string name="com_auth0_client_id">2Yed5wNOCPpahUj4ohW0g1omixLiQPgK</string>
+    <string name="com_auth0_domain">newshere.eu.auth0.com</string>
 </resources>
