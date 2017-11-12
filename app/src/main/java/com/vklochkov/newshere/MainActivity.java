@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.vklochkov.newshere.fragments.ArticleFragment;
+import com.vklochkov.newshere.fragments.ArticleListFragment;
 import com.vklochkov.newshere.fragments.SearchBarFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,12 +22,7 @@ public class MainActivity extends AppCompatActivity {
         getFragmentManager()
             .beginTransaction()
             .add(R.id.search_bar_fragment_container, new SearchBarFragment())
-            .add(R.id.article_list_fragment_container, new ArticleFragment())
-            .add(R.id.article_list_fragment_container, new ArticleFragment())
-            .add(R.id.article_list_fragment_container, new ArticleFragment())
-            .add(R.id.article_list_fragment_container, new ArticleFragment())
-            .add(R.id.article_list_fragment_container, new ArticleFragment())
-            .add(R.id.article_list_fragment_container, new ArticleFragment())
+            .add(R.id.article_list_fragment_container, new ArticleListFragment())
             .commit();
     }
 
