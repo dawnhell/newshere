@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
         getFragmentManager()
             .beginTransaction()
-            .add(R.id.search_bar_fragment_container, new SearchBarFragment())
+//            .add(R.id.search_bar_fragment_container, new SearchBarFragment())
             .add(R.id.article_list_fragment_container, new ArticleListFragment())
             .commit();
     }

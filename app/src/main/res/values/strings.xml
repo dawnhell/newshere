@@ -3,4 +3,5 @@
     <string name="login_text">Login</string>
     <string name="exit_text">Exit</string>
     <string name="search_bar_text">Search...</string>
+    <string name="search_btn_text">Search</string>
 </resources>

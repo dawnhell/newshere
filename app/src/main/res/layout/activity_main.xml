@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context="com.vklochkov.newshere.MainActivity"
 >
-
     <LinearLayout
         android:id="@+id/search_bar_fragment_container"
         android:layout_width="wrap_content"
@@ -16,7 +15,8 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+    />
 
     <LinearLayout
         android:id="@+id/article_list_fragment_container"
@@ -26,5 +26,6 @@
         android:layout_marginTop="8dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_bar_fragment_container" />
+        app:layout_constraintTop_toBottomOf="@+id/search_bar_fragment_container"
+    />
 </android.support.constraint.ConstraintLayout>
