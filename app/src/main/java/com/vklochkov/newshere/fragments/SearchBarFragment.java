@@ -1,12 +1,12 @@
 package com.vklochkov.newshere.fragments;
 
-import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,17 +23,20 @@ public class SearchBarFragment extends Fragment {
     private boolean isServiceBound;
 
     @Override
-    public View onCreateView(LayoutInflater layoutInflater, ViewGroup container, Bundle savedInstanceState) {
-        bindSearchBtn(container);
-        return layoutInflater.inflate(R.layout.search_bar_fragment, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.search_bar_fragment, container, false);
+
+        bindSearchBtn(view);
+
+        return view;
     }
 
-    private void bindSearchBtn (final ViewGroup viewGroup) {
-        Button searchBtn = (Button) viewGroup.findViewById(R.id.searchBtn);
+    private void bindSearchBtn (final View view) {
+        Button searchBtn = (Button) view.findViewById(R.id.searchBtn);
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                EditText searchText = (EditText) viewGroup.findViewById(R.id.searchText);
+                EditText searchText = (EditText) view.findViewById(R.id.searchText);
                 String request = searchText.getText().toString();
             }
         });
