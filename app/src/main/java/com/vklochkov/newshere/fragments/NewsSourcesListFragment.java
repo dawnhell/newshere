@@ -21,9 +21,9 @@ public class NewsSourcesListFragment extends Fragment {
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.news_sources_list_fragment, container, false);
 
-        Button abcNewsBtn = (Button) view.findViewById(R.id.abc_news_btn);
-        Button bbcNewsBtn = (Button) view.findViewById(R.id.bbc_news_btn);
-        Button foxNewsBtn = (Button) view.findViewById(R.id.fox_news_btn);
+        Button abcNewsBtn = view.findViewById(R.id.abc_news_btn);
+        Button bbcNewsBtn = view.findViewById(R.id.bbc_news_btn);
+        Button foxNewsBtn = view.findViewById(R.id.fox_news_btn);
 
         this.bindBtnOnClickListener(abcNewsBtn, "ABC News", ABC_NEWS_API);
         this.bindBtnOnClickListener(bbcNewsBtn, "BBC News", BBC_NEWS_API);
