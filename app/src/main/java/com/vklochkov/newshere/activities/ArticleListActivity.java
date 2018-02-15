@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class ArticleListActivity extends AppCompatActivity {
+    private ProgressBar spinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,8 @@ public class ArticleListActivity extends AppCompatActivity {
         setTitle(getIntent().getStringExtra("title"));
 
         ListView articleListView = findViewById(R.id.article_list);
+        spinner = findViewById(R.id.progress_bar);
+        spinner.setVisibility(View.GONE);
 
         try {
             getArticleList(articleListView);
@@ -96,7 +101,7 @@ public class ArticleListActivity extends AppCompatActivity {
             .subscribe(new Observer<ArrayList<Article>>() {
                 @Override
                 public void onSubscribe (Disposable d) {
-
+                    spinner.setVisibility(View.VISIBLE);
                 }
 
                 @Override
@@ -112,7 +117,7 @@ public class ArticleListActivity extends AppCompatActivity {
 
                 @Override
                 public void onComplete () {
-
+                    spinner.setVisibility(View.GONE);
                 }
             });
     }

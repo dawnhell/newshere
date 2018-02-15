@@ -20,12 +20,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout = findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("READ"));
         tabLayout.addTab(tabLayout.newTab().setText("SEARCH"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager = findViewById(R.id.pager);
         adapter   = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

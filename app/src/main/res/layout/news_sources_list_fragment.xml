@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
->
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/chooseText"
@@ -13,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="60dp"
         android:text="Choose News Source"
         android:textColor="#212121"
         android:textSize="24sp"
@@ -23,21 +21,24 @@
 
     <Button
         android:id="@+id/abc_news_btn"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/abc_news_icon"
+        app:layout_constraintEnd_toStartOf="@+id/bbc_news_btn"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chooseText" />
 
     <Button
         android:id="@+id/bbc_news_btn"
-        android:layout_width="70dp"
+        android:layout_width="72dp"
         android:layout_height="70dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/bbc_news_icon"
+        app:layout_constraintEnd_toStartOf="@+id/fox_news_btn"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/abc_news_btn"
         app:layout_constraintTop_toBottomOf="@+id/chooseText" />
 
@@ -45,9 +46,10 @@
         android:id="@+id/fox_news_btn"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/fox_news_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/bbc_news_btn"
         app:layout_constraintTop_toBottomOf="@+id/chooseText" />
 </android.support.constraint.ConstraintLayout>

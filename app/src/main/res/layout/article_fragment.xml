@@ -1,42 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:padding="6dip"
 >
-    <ImageView
-        android:id="@+id/article_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="6dip"
-    />
 
     <TextView
         android:id="@+id/article_description"
-        android:layout_width="fill_parent"
-        android:layout_height="26dip"
+        android:layout_width="match_parent"
+        android:layout_height="35dip"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@id/article_image"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ellipsize="marquee"
-        android:maxLines="1"
-        android:text="Description"
-        android:textSize="12sp" />
+        android:maxLines="2"
+        android:textColor="#666666"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/article_title"
+    />
 
     <TextView
         android:id="@+id/article_title"
-        android:layout_width="fill_parent"
+        android:layout_width="265dp"
         android:layout_height="wrap_content"
-        android:layout_above="@id/article_description"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_toRightOf="@id/article_image"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:gravity="center_vertical"
-        android:text="Example application"
-        android:textSize="16sp" />
+        android:textColor="#1d1d1d"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+    />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/article_created_at"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="12dp"
+        android:textColor="#777777"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/article_title"
+        app:layout_constraintTop_toTopOf="parent"
+    />
+</android.support.constraint.ConstraintLayout>

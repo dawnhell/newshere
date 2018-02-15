@@ -32,13 +32,11 @@ public class ArticleListAdapter extends ArrayAdapter<Article> {
         title.setText(articles.get(position).getTitle());
 
         TextView description = rowView.findViewById(R.id.article_description);
-        description.setText(articles.get(position).getDescription());
-//        ImageView image = rowView.findViewById(R.id.article_image);
-//        image.set(articles.get(position).getImageUrl()));
+        description.setText(articles.get(position).getDescription().length() > 0 ? articles.get(position).getDescription() : "No description");
 
-//        TextView textView = (TextView) rowView.findViewById(R.id.label);
-//        ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-//        textView.setText(values[position]);
+        TextView createdAt = rowView.findViewById(R.id.article_created_at);
+        String publishedAt = articles.get(position).getPublishedAt();
+        createdAt.setText(publishedAt.substring(0, publishedAt.indexOf("T")));
 
         return rowView;
     }
