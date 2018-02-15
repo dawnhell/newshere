@@ -1,8 +1,5 @@
 package com.vklochkov.newshere.models;
 
-import java.util.ArrayList;
-
-
 public class Article {
     private String title       = null;
     private String description = null;
@@ -12,12 +9,12 @@ public class Article {
     private String author      = null;
 
     public Article(
-            String title,
-            String description,
-            String url,
-            String imageUrl,
-            String publishedAt,
-            String author
+        String title,
+        String description,
+        String url,
+        String imageUrl,
+        String publishedAt,
+        String author
     ) {
         this.title       = title;
         this.description = description;

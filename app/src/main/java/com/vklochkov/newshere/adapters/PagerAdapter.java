@@ -4,12 +4,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.vklochkov.newshere.fragments.ArticleListFragment;
 import com.vklochkov.newshere.fragments.NewsSourcesListFragment;
 import com.vklochkov.newshere.fragments.SearchBarFragment;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
-    int mNumOfTabs;
+    private int mNumOfTabs;
 
     public PagerAdapter(FragmentManager fm, int numOfTabs) {
         super(fm);

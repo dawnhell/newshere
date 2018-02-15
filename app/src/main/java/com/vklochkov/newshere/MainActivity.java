@@ -4,18 +4,11 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.vklochkov.newshere.adapters.PagerAdapter;
-import com.vklochkov.newshere.fragments.ArticleFragment;
-import com.vklochkov.newshere.fragments.ArticleListFragment;
-import com.vklochkov.newshere.fragments.SearchBarFragment;
 
 public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
@@ -26,12 +19,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        getFragmentManager()
-//            .beginTransaction()
-//            .add(R.id.search_bar_fragment_container, new SearchBarFragment())
-//            .add(R.id.article_list_fragment_container, new ArticleListFragment())
-//            .commit();
 
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("READ"));
