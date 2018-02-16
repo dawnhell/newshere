@@ -17,11 +17,12 @@
         android:id="@+id/article_progress_bar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="4dp"
         android:indeterminateOnly="false"
         android:max="100"
         android:progressDrawable="@drawable/horizontal_progress_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+    />
 </FrameLayout>
