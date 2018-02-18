@@ -61,6 +61,7 @@ public class ArticleListActivity extends AppCompatActivity {
         }
     }
 
+
     private void setTitle (String title) {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
