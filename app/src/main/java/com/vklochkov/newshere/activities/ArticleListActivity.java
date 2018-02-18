@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -31,6 +30,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ArticleListActivity extends AppCompatActivity {
     private ProgressBar spinner;
+    private ListView articleListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class ArticleListActivity extends AppCompatActivity {
 
         setTitle(getIntent().getStringExtra("title"));
 
-        ListView articleListView = findViewById(R.id.article_list);
+        articleListView = findViewById(R.id.article_list);
         spinner = findViewById(R.id.progress_bar);
         spinner.setVisibility(View.GONE);
 
@@ -75,7 +75,7 @@ public class ArticleListActivity extends AppCompatActivity {
         Observable.create(new ObservableOnSubscribe<ArrayList<Article>>() {
             @Override
             public void subscribe (@NonNull ObservableEmitter<ArrayList<Article>> emitter) throws Exception {
-                emitter.onNext(newsAPIService.getArticlesBySource(apiKey));
+                emitter.onNext(newsAPIService.getArticlesBySourceAndPage(apiKey, 1));
                 emitter.onComplete();
             }
         })

@@ -19,8 +19,14 @@ public class NewsAPIService {
     private OkHttpClient okHttpClient = new OkHttpClient();
     private final String API_KEY = "9019330b938f4c5891909f999d472473";
 
-    public ArrayList<Article> getArticlesBySource (String source) throws IOException {
-        String url = "https://newsapi.org/v2/top-headlines?sources=" + source + "&apiKey=" + API_KEY;
+    public ArrayList<Article> getArticlesBySourceAndPage (String source, int page) throws IOException {
+        String url = "https://newsapi.org/v2/top-headlines?sources=" + source  + "&page=" + page + "&apiKey=" + API_KEY;
+        return parseArticlesFromString(getArticlesByUrl(url));
+    }
+
+    public ArrayList<Article> getArticlesByRequestAndPage (String request, int page) throws IOException {
+        String url = "https://newsapi.org/v2/everything?q=" + request + "&page=" + page + "&apiKey=" + API_KEY + "&language=en";
+        Log.d("NEASAI", getArticlesByUrl(url));
         return parseArticlesFromString(getArticlesByUrl(url));
     }
 
