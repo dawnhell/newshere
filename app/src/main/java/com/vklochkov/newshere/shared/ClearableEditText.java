@@ -41,11 +41,13 @@ public class ClearableEditText extends AppCompatEditText {
 
                 ClearableEditText et = ClearableEditText.this;
 
-                if (et.getCompoundDrawables()[2] == null)
+                if (et.getCompoundDrawables()[2] == null) {
                     return false;
+                }
 
-                if (event.getAction() != MotionEvent.ACTION_UP)
+                if (event.getAction() != MotionEvent.ACTION_UP) {
                     return false;
+                }
 
                 if (event.getX() > et.getWidth() - et.getPaddingRight() - imgCloseButton.getIntrinsicWidth()) {
                     et.setText("");

@@ -6,32 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 >
-    <!--<EditText
-        android:id="@+id/searchText"
-        android:layout_width="240dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="72dp"
-        android:ems="10"
-        android:hint="@string/search_bar_text"
-        android:inputType="text"
-        android:selectAllOnFocus="false"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/searchBtn"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-    />
--->
     <com.vklochkov.newshere.shared.ClearableEditText
         android:id="@+id/searchText"
         android:layout_width="240dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginTop="72dp"
         android:ems="10"
         android:hint="@string/search_bar_text"
         android:inputType="text"
         android:selectAllOnFocus="false"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/searchBtn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,15 +24,14 @@
 
     <Button
         android:id="@+id/searchBtn"
-        android:layout_width="89dp"
-        android:layout_height="50dp"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
         android:layout_marginTop="72dp"
         android:text="@string/search_btn_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/searchText"
-        app:layout_constraintTop_toTopOf="parent"
-    />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -58,7 +41,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="190dp"
         android:progressDrawable="@drawable/circular_progress_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +51,96 @@
     <ListView
         android:id="@+id/article_list"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="140dp"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="190dp"
+        app:layout_constraintTop_toTopOf="parent"
+    />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+    >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sort_by_title"
+            android:textSize="14sp"
+        />
+
+        <RadioButton
+            android:id="@+id/sort_by_popularity_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sort_by_popularity"
+            android:textSize="12sp"
+        />
+
+        <RadioButton
+            android:id="@+id/sort_by_relevancy_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sort_by_relevancy"
+            android:textSize="12sp"
+        />
+
+        <RadioButton
+            android:id="@+id/sort_by_published_at_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sort_by_published_at"
+            android:textSize="12sp"
+            android:checked="true"
+        />
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/choose_date_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+    >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sort_date_from"
+            android:textSize="14sp"
+        />
+
+        <EditText
+            android:id="@+id/sort_date_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="@string/sort_date_hint"
+            android:textSize="14sp"
+        />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sort_date_to"
+            android:textSize="14sp"
+        />
+
+        <EditText
+            android:id="@+id/sort_date_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="@string/sort_date_hint"
+            android:textSize="14sp"
+        />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

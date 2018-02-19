@@ -19,18 +19,21 @@ public class NewsAPIService {
     private OkHttpClient okHttpClient = new OkHttpClient();
     private final String API_KEY = "9019330b938f4c5891909f999d472473";
 
-    public ArrayList<Article> getArticlesBySourceAndPage (String source, int page) throws IOException {
-        String url = "https://newsapi.org/v2/top-headlines?sources=" + source  + "&page=" + page + "&apiKey=" + API_KEY;
+    public ArrayList<Article> getArticlesBySource (String source, int page) throws IOException {
+        String url = "https://newsapi.org/v2/top-headlines?sources=" + source  + "&page=" + page + "&apiKey=" + API_KEY + "&pageSize=30";
         return parseArticlesFromString(getArticlesByUrl(url));
     }
 
-    public ArrayList<Article> getArticlesByRequestAndPage (String request, int page) throws IOException {
-        String url = "https://newsapi.org/v2/everything?q=" + request + "&page=" + page + "&apiKey=" + API_KEY + "&language=en";
-        Log.d("NEASAI", getArticlesByUrl(url));
+    public ArrayList<Article> getArticlesByRequest (String request, int page, String sortBy, String from, String to) throws IOException {
+        String append = (sortBy.length() > 0 ? "&sortBy=" + sortBy : "")
+            + (from.length() > 0 ? "&from=" + from : "")
+            + (to.length() > 0 ? "&to=" + to : "");
+
+        String url = "https://newsapi.org/v2/everything?q=" + request + "&page=" + page + "&apiKey=" + API_KEY + "&pageSize=30" + append;
         return parseArticlesFromString(getArticlesByUrl(url));
     }
 
-    public String getArticlesByUrl(final String url) throws IOException {
+    private String getArticlesByUrl(final String url) throws IOException {
         Request request = new Request.Builder()
             .url(url)
             .build();

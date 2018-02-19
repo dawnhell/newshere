@@ -5,4 +5,11 @@
     <string name="search_bar_text">Search...</string>
     <string name="search_btn_text">Search</string>
     <string name="choose_news_source_text">Choose News Source</string>
+    <string name="sort_by_title">Sort by:</string>
+    <string name="sort_by_popularity">Popularity</string>
+    <string name="sort_by_relevancy">Relevancy</string>
+    <string name="sort_by_published_at">Published at</string>
+    <string name="sort_date_from">Date from:</string>
+    <string name="sort_date_to">Date to:</string>
+    <string name="sort_date_hint">Choose date...</string>
 </resources>

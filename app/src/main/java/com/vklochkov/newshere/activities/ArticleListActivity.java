@@ -75,7 +75,7 @@ public class ArticleListActivity extends AppCompatActivity {
         Observable.create(new ObservableOnSubscribe<ArrayList<Article>>() {
             @Override
             public void subscribe (@NonNull ObservableEmitter<ArrayList<Article>> emitter) throws Exception {
-                emitter.onNext(newsAPIService.getArticlesBySourceAndPage(apiKey, 1));
+                emitter.onNext(newsAPIService.getArticlesBySource(apiKey, 1));
                 emitter.onComplete();
             }
         })
