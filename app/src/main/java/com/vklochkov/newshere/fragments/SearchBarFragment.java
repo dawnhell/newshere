@@ -19,7 +19,19 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import com.ibm.watson.developer_cloud.android.library.audio.MicrophoneHelper;
+import com.ibm.watson.developer_cloud.android.library.audio.MicrophoneInputStream;
+import com.ibm.watson.developer_cloud.android.library.audio.StreamPlayer;
+import com.ibm.watson.developer_cloud.android.library.audio.utils.ContentType;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
+
+import com.scalified.fab.ActionButton;
+
+import com.vklochkov.newshere.MainActivity;
 import com.vklochkov.newshere.R;
 import com.vklochkov.newshere.activities.ArticleActivity;
 import com.vklochkov.newshere.adapters.ArticleListAdapter;
@@ -40,25 +52,37 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
+
 public class SearchBarFragment extends Fragment {
-    NewsAPIService     newsAPIService = new NewsAPIService();
-    ArticleListAdapter adapter;
-    ProgressBar        spinner;
-    ListView           articleListView;
-    EditText           searchText;
-    Button             searchBtn;
-    Calendar           calendar;
-    EditText           sortDateFrom;
-    EditText           sortDateTo;
-    EditText           activeEditText;
-    RadioGroup         sortByRadioGroup;
-    String             sortByKey = "publishedAt";
-    String             sortFrom = "";
-    String             sortTo = "";
+    NewsAPIService        newsAPIService = new NewsAPIService();
+    StreamPlayer          player         = new StreamPlayer();
+    boolean               listening      = false;
+    SpeechToText          speechService;
+    ArticleListAdapter    adapter;
+    MicrophoneHelper      microphoneHelper;
+    MicrophoneInputStream capture;
+
+    ProgressBar          spinner;
+    ListView             articleListView;
+    EditText             searchText;
+    Button               searchBtn;
+    Calendar             calendar;
+    EditText             sortDateFrom;
+    EditText             sortDateTo;
+    EditText             activeEditText;
+    RadioGroup           sortByRadioGroup;
+    String               sortByKey = "publishedAt";
+    String               sortFrom = "";
+    String               sortTo = "";
+    ActionButton         speakBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.search_bar_fragment, container, false);
+
+        microphoneHelper = new MicrophoneHelper(getActivity());
+        speechService = initSpeechToTextService();
 
         spinner          = view.findViewById(R.id.progress_bar);
         articleListView  = view.findViewById(R.id.article_list);
@@ -68,11 +92,14 @@ public class SearchBarFragment extends Fragment {
         sortDateFrom     = view.findViewById(R.id.sort_date_from);
         sortDateTo       = view.findViewById(R.id.sort_date_to);
         sortByRadioGroup = view.findViewById(R.id.radioGroup);
+        speakBtn         = view.findViewById(R.id.speak_btn);
 
         spinner.setVisibility(View.GONE);
+
         bindSearchButton();
         bindFilterButtons();
         setRadioBtnOnClickListener();
+        bindHoldSpeakBtn();
 
         return view;
     }
@@ -213,5 +240,80 @@ public class SearchBarFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private SpeechToText initSpeechToTextService() {
+        SpeechToText service = new SpeechToText();
+        String username = getString(R.string.speech_text_username);
+        String password = getString(R.string.speech_text_password);
+        service.setUsernameAndPassword(username, password);
+        service.setEndPoint(getString(R.string.speech_text_url));
+        return service;
+    }
+
+    private void bindHoldSpeakBtn () {
+        speakBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+                if (!listening) {
+                    capture = microphoneHelper.getInputStream(true);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                speechService.recognizeUsingWebSocket(capture, getRecognizeOptions(),
+                                    new MicrophoneRecognizeDelegate());
+                            } catch (Exception e) {
+                                showError(e);
+                            }
+                        }
+                    }).start();
+                    listening = true;
+                } else {
+                    microphoneHelper.closeInputStream();
+                    listening = false;
+                }
+            }
+        });
+    }
+
+
+    private void showError(final Exception e) {
+        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        e.printStackTrace();
+    }
+
+
+    private RecognizeOptions getRecognizeOptions() {
+        return new RecognizeOptions.Builder().contentType(ContentType.OPUS.toString())
+            .model("en-US_BroadbandModel").interimResults(true).inactivityTimeout(2000).build();
+    }
+
+    private class MicrophoneRecognizeDelegate extends BaseRecognizeCallback {
+        @Override
+        public void onTranscription(SpeechResults speechResults) {
+            System.out.println(speechResults);
+            if (speechResults.getResults() != null && !speechResults.getResults().isEmpty()) {
+                final String text = speechResults.getResults().get(0).getAlternatives().get(0).getTranscript();
+
+                getActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                        searchText.setText(text);
+                        searchBtn.callOnClick();
+                    }
+                });
+            }
+        }
+
+        @Override
+        public void onError(Exception e) {
+            showError(e);
+//            enableMicButton();
+        }
+
+        @Override
+        public void onDisconnected() {
+//            enableMicButton();
+        }
     }
 }
