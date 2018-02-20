@@ -1,7 +1,5 @@
 package com.vklochkov.newshere.services;
 
-import android.util.Log;
-
 import com.vklochkov.newshere.models.Article;
 
 import org.json.JSONArray;

@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import com.ibm.watson.developer_cloud.android.library.audio.MicrophoneHelper;
 import com.ibm.watson.developer_cloud.android.library.audio.MicrophoneInputStream;
-import com.ibm.watson.developer_cloud.android.library.audio.StreamPlayer;
 import com.ibm.watson.developer_cloud.android.library.audio.utils.ContentType;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
@@ -31,7 +30,6 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeC
 
 import com.scalified.fab.ActionButton;
 
-import com.vklochkov.newshere.MainActivity;
 import com.vklochkov.newshere.R;
 import com.vklochkov.newshere.activities.ArticleActivity;
 import com.vklochkov.newshere.adapters.ArticleListAdapter;
@@ -56,7 +54,6 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
 
 public class SearchBarFragment extends Fragment {
     NewsAPIService        newsAPIService = new NewsAPIService();
-    StreamPlayer          player         = new StreamPlayer();
     boolean               listening      = false;
     SpeechToText          speechService;
     ArticleListAdapter    adapter;
@@ -256,6 +253,7 @@ public class SearchBarFragment extends Fragment {
             @Override
             public void onClick (View v) {
                 if (!listening) {
+                    speakBtn.setActivated(true);
                     capture = microphoneHelper.getInputStream(true);
                     new Thread(new Runnable() {
                         @Override
@@ -270,6 +268,7 @@ public class SearchBarFragment extends Fragment {
                     }).start();
                     listening = true;
                 } else {
+                    speakBtn.setActivated(false);
                     microphoneHelper.closeInputStream();
                     listening = false;
                 }
@@ -308,12 +307,11 @@ public class SearchBarFragment extends Fragment {
         @Override
         public void onError(Exception e) {
             showError(e);
-//            enableMicButton();
         }
 
         @Override
         public void onDisconnected() {
-//            enableMicButton();
+
         }
     }
 }
