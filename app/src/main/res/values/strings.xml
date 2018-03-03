@@ -13,4 +13,64 @@
     <string name="sort_date_to">Date to:</string>
     <string name="sort_date_hint">Choose date...</string>
     <string name="speak_btn_title">Hold and speak</string>
+
+    <string-array name="news_api_keys">
+        <item>reddit-r-all</item>
+        <item>hacker-news</item>
+        <item>the-next-web</item>
+        <item>usa-today</item>
+        <item>lenta</item>
+        <item>mtv-news</item>
+        <item>national-geographic</item>
+        <item>news24</item>
+        <item>the-verge</item>
+        <item>wired</item>
+        <item>abc-news</item>
+        <item>fortune</item>
+        <item>four-four-two</item>
+        <item>fox-news</item>
+        <item>fox-sports</item>
+        <item>new-scientist</item>
+        <item>medical-news-today</item>
+    </string-array>
+
+    <string-array name="news_titles">
+        <item>Reddit All News</item>
+        <item>Hacker News</item>
+        <item>The Next Web News</item>
+        <item>USA Today News</item>
+        <item>Lenta.ru News</item>
+        <item>MTV News</item>
+        <item>National Geographic News</item>
+        <item>News24</item>
+        <item>The Verge News</item>
+        <item>Wired News</item>
+        <item>ABC News</item>
+        <item>Fortune News</item>
+        <item>Four Four Two News</item>
+        <item>Fox News</item>
+        <item>Fox Sports News</item>
+        <item>New Scientist News</item>
+        <item>Medical News Today</item>
+    </string-array>
+
+    <integer-array name="news_icons">
+        <item>@drawable/reddit_icon</item>
+        <item>@drawable/hacker_news_icon</item>
+        <item>@drawable/the_next_web_icon</item>
+        <item>@drawable/usa_today_icon</item>
+        <item>@drawable/lenta_icon</item>
+        <item>@drawable/mtv_icon</item>
+        <item>@drawable/nat_geo_icon</item>
+        <item>@drawable/news24_icon</item>
+        <item>@drawable/the_verge_icon</item>
+        <item>@drawable/wired_icon</item>
+        <item>@drawable/abc_news_icon</item>
+        <item>@drawable/fortune_icon</item>
+        <item>@drawable/four_four_two_icon</item>
+        <item>@drawable/fox_news_icon</item>
+        <item>@drawable/fox_sports_icon</item>
+        <item>@drawable/new_scientist_icon</item>
+        <item>@drawable/mnt_icon</item>
+    </integer-array>
 </resources>

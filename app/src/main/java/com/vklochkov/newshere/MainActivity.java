@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("SEARCH"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
+
         viewPager = findViewById(R.id.pager);
         adapter   = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
@@ -57,9 +58,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.login:
-                return true;
-
             case R.id.exit:
                 finish();
                 return true;

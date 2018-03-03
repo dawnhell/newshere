@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -258,12 +257,6 @@ public class SearchBarFragment extends Fragment {
                 if (!listening) {
                     Toast.makeText(v.getContext(), "Speak now.", Toast.LENGTH_LONG).show();
                     speakBtn.setActivated(true);
-                    speakBtn.setAnimation(new Animation() {
-                        @Override
-                        public void scaleCurrentDuration (float scale) {
-                            super.scaleCurrentDuration(scale);
-                        }
-                    });
                     capture = microphoneHelper.getInputStream(true);
                     new Thread(new Runnable() {
                         @Override
