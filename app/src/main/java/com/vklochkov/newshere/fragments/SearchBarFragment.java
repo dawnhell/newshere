@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -91,6 +93,7 @@ public class SearchBarFragment extends Fragment {
         sortByRadioGroup = view.findViewById(R.id.radioGroup);
         speakBtn         = view.findViewById(R.id.speak_btn);
 
+        speakBtn.setShadowResponsiveEffectEnabled(true);
         spinner.setVisibility(View.GONE);
 
         bindSearchButton();
@@ -253,7 +256,14 @@ public class SearchBarFragment extends Fragment {
             @Override
             public void onClick (View v) {
                 if (!listening) {
+                    Toast.makeText(v.getContext(), "Speak now.", Toast.LENGTH_LONG).show();
                     speakBtn.setActivated(true);
+                    speakBtn.setAnimation(new Animation() {
+                        @Override
+                        public void scaleCurrentDuration (float scale) {
+                            super.scaleCurrentDuration(scale);
+                        }
+                    });
                     capture = microphoneHelper.getInputStream(true);
                     new Thread(new Runnable() {
                         @Override
@@ -291,7 +301,7 @@ public class SearchBarFragment extends Fragment {
     private class MicrophoneRecognizeDelegate extends BaseRecognizeCallback {
         @Override
         public void onTranscription(SpeechResults speechResults) {
-            System.out.println(speechResults);
+            Log.d("Recognized text", speechResults.toString());
             if (speechResults.getResults() != null && !speechResults.getResults().isEmpty()) {
                 final String text = speechResults.getResults().get(0).getAlternatives().get(0).getTranscript();
 

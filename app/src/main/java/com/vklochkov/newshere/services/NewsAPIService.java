@@ -18,7 +18,7 @@ public class NewsAPIService {
     private final String API_KEY = "9019330b938f4c5891909f999d472473";
 
     public ArrayList<Article> getArticlesBySource (String source, int page) throws IOException {
-        String url = "https://newsapi.org/v2/top-headlines?sources=" + source  + "&page=" + page + "&apiKey=" + API_KEY + "&pageSize=30";
+        String url = "https://newsapi.org/v2/top-headlines?sources=" + source  + "&page=" + page + "&apiKey=" + API_KEY;
         return parseArticlesFromString(getArticlesByUrl(url));
     }
 
