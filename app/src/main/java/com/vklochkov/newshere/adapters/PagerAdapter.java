@@ -9,6 +9,8 @@ import com.vklochkov.newshere.fragments.SearchBarFragment;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
     private int mNumOfTabs;
+    private NewsSourcesListFragment newsSourcesListFragment;
+    private SearchBarFragment searchBarFragment;
 
     public PagerAdapter(FragmentManager fm, int numOfTabs) {
         super(fm);
@@ -19,12 +21,11 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                NewsSourcesListFragment newsSourcesListFragment = new NewsSourcesListFragment();
-                return newsSourcesListFragment;
+                this.newsSourcesListFragment = new NewsSourcesListFragment();
+                return this.newsSourcesListFragment;
             case 1:
-//                ArticleListFragment articleListFragment = new ArticleListFragment();
-                SearchBarFragment searchBarFragment = new SearchBarFragment();
-                return searchBarFragment;
+                this.searchBarFragment = new SearchBarFragment();
+                return this.searchBarFragment;
             default:
                 return null;
         }
@@ -32,6 +33,6 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return mNumOfTabs;
+        return this.mNumOfTabs;
     }
 }

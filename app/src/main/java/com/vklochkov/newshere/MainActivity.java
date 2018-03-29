@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("SEARCH"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-
         viewPager = findViewById(R.id.pager);
         adapter   = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);

@@ -6,6 +6,7 @@
     android:padding="10dp"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:id="@+id/news_source_item"
 >
     <ImageView
         android:id="@+id/source_image"

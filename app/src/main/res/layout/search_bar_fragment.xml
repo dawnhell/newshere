@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/search_bar_fragment"
 >
     <com.vklochkov.newshere.shared.ClearableEditText
         android:id="@+id/searchText"
