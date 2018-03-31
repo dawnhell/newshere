@@ -38,7 +38,6 @@ public class ClearableEditText extends AppCompatEditText {
         this.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
                 ClearableEditText et = ClearableEditText.this;
 
                 if (et.getCompoundDrawables()[2] == null) {
