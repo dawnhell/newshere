@@ -1,5 +1,7 @@
 package com.vklochkov.newshere.services;
 
+import android.util.Log;
+
 import com.vklochkov.newshere.models.Article;
 
 import org.json.JSONArray;
@@ -19,7 +21,7 @@ public class NewsAPIService {
 
     public ArrayList<Article> getArticlesBySource (String source, int page) throws IOException {
         String url = "https://newsapi.org/v2/top-headlines?sources=" + source  + "&page=" + page + "&apiKey=" + API_KEY;
-        return parseArticlesFromString(getArticlesByUrl(url));
+        return parseArticlesFromString(getArticlesByUrl(url), source);
     }
 
     public ArrayList<Article> getArticlesByRequest (String request, int page, String sortBy, String from, String to) throws IOException {
@@ -28,7 +30,7 @@ public class NewsAPIService {
             + (to.length() > 0 ? "&to=" + to : "");
 
         String url = "https://newsapi.org/v2/everything?q=" + request + "&page=" + page + "&apiKey=" + API_KEY + "&pageSize=30" + append;
-        return parseArticlesFromString(getArticlesByUrl(url));
+        return parseArticlesFromString(getArticlesByUrl(url), "");
     }
 
     private String getArticlesByUrl(final String url) throws IOException {
@@ -40,7 +42,7 @@ public class NewsAPIService {
         return response.body().string();
     }
 
-    public ArrayList<Article> parseArticlesFromString (String result) {
+    public ArrayList<Article> parseArticlesFromString (String result, String source) {
         ArrayList<Article> articleArrayList = new ArrayList<Article>();
 
         try {
@@ -55,7 +57,8 @@ public class NewsAPIService {
                     article.getString("url"),
                     article.getString("urlToImage"),
                     article.getString("publishedAt"),
-                    article.getString("author")
+                    article.getString("author"),
+                    source
                 ));
             }
         } catch (JSONException jsone) {

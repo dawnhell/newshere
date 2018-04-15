@@ -1,8 +1,13 @@
 package com.vklochkov.newshere.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -13,6 +18,7 @@ import android.widget.ProgressBar;
 
 import com.vklochkov.newshere.R;
 import com.vklochkov.newshere.adapters.ArticleListAdapter;
+import com.vklochkov.newshere.db.DatabaseHelper;
 import com.vklochkov.newshere.models.Article;
 import com.vklochkov.newshere.services.NewsAPIService;
 
@@ -31,6 +37,10 @@ import io.reactivex.schedulers.Schedulers;
 public class ArticleListActivity extends AppCompatActivity {
     private ProgressBar spinner;
     private ListView articleListView;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private DatabaseHelper dbHelper;
+    private ConnectivityManager connectivityManager;
+    private NetworkInfo networkInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +49,46 @@ public class ArticleListActivity extends AppCompatActivity {
 
         setTitle(getIntent().getStringExtra("title"));
 
+        dbHelper = new DatabaseHelper(this);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         articleListView = findViewById(R.id.article_list);
         spinner = findViewById(R.id.progress_bar);
         spinner.setVisibility(View.GONE);
 
-        try {
-            getArticleList(articleListView);
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+        connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        networkInfo = connectivityManager.getActiveNetworkInfo();
+        boolean isConnected = networkInfo != null && networkInfo.isConnectedOrConnecting();
+
+        if (isConnected) {
+            try {
+                getArticleList(articleListView, true);
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+        } else {
+            getArticleListFromDB();
         }
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh () {
+                swipeRefreshLayout.setRefreshing(false);
+
+                networkInfo = connectivityManager.getActiveNetworkInfo();
+                boolean isConnected = networkInfo != null && networkInfo.isConnectedOrConnecting();
+
+                if (isConnected) {
+                    try {
+                        getArticleList(articleListView, false);
+                    } catch (IOException ioe) {
+                        ioe.printStackTrace();
+                    }
+                } else {
+                    getArticleListFromDB();
+                }
+            }
+        });
     }
 
     @Override
@@ -61,6 +102,10 @@ public class ArticleListActivity extends AppCompatActivity {
         }
     }
 
+    private void getArticleListFromDB() {
+        ArrayList<Article> articleArrayList = dbHelper.getArticlesBySource(getIntent().getStringExtra("apiKey"));
+        addArticlesToList(articleArrayList, articleListView);
+    }
 
     private void setTitle (String title) {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -68,7 +113,7 @@ public class ArticleListActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
     }
 
-    private void getArticleList (final ListView articleListView) throws IOException {
+    private void getArticleList (final ListView articleListView, final boolean shouldShowSpinner) throws IOException {
         final NewsAPIService newsAPIService = new NewsAPIService();
         final String apiKey = getIntent().getStringExtra("apiKey");
 
@@ -84,12 +129,17 @@ public class ArticleListActivity extends AppCompatActivity {
             .subscribe(new Observer<ArrayList<Article>>() {
                 @Override
                 public void onSubscribe (Disposable d) {
-                    spinner.setVisibility(View.VISIBLE);
+                    if (shouldShowSpinner) {
+                        spinner.setVisibility(View.VISIBLE);
+                    } else {
+                        spinner.setVisibility(View.INVISIBLE);
+                    }
                 }
 
                 @Override
                 public void onNext (ArrayList<Article> articleArrayList) {
                     addArticlesToList(articleArrayList, articleListView);
+                    saveArticlesToDB(articleArrayList);
                 }
 
                 @Override
@@ -103,6 +153,13 @@ public class ArticleListActivity extends AppCompatActivity {
                     spinner.setVisibility(View.GONE);
                 }
             });
+    }
+
+    private void saveArticlesToDB(ArrayList<Article> articleArrayList) {
+        if (dbHelper.getArticlesBySource(getIntent().getStringExtra("apiKey")).size() > 0) {
+            dbHelper.deleteArticleBySource(getIntent().getStringExtra("apiKey"));
+        }
+        dbHelper.insertArticles(articleArrayList);
     }
 
     private void addArticlesToList (final ArrayList<Article> articleArrayList, ListView articleListView) {

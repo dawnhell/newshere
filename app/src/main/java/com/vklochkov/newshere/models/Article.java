@@ -7,6 +7,7 @@ public class Article {
     private String imageUrl    = null;
     private String publishedAt = null;
     private String author      = null;
+    private String source    = null;
 
     public Article(
         String title,
@@ -14,7 +15,8 @@ public class Article {
         String url,
         String imageUrl,
         String publishedAt,
-        String author
+        String author,
+        String source
     ) {
         this.title       = title;
         this.description = description;
@@ -22,6 +24,7 @@ public class Article {
         this.imageUrl    = imageUrl;
         this.publishedAt = publishedAt;
         this.author      = author;
+        this.source      = source;
     }
 
     public String getTitle () {
@@ -46,5 +49,9 @@ public class Article {
 
     public String getAuthor () {
         return author;
+    }
+
+    public String getSource() {
+        return source;
     }
 }
