@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SearchBarFragment.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">com.vklochkov.newshere.fragments</a> &gt; <span class="el_source">SearchBarFragment.java</span></div><h1>SearchBarFragment.java</h1><pre class="source lang-java linenums">package com.vklochkov.newshere.fragments;
+
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import com.ibm.watson.developer_cloud.android.library.audio.MicrophoneHelper;
+import com.ibm.watson.developer_cloud.android.library.audio.MicrophoneInputStream;
+import com.ibm.watson.developer_cloud.android.library.audio.utils.ContentType;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
+
+import com.scalified.fab.ActionButton;
+
+import com.vklochkov.newshere.R;
+import com.vklochkov.newshere.activities.ArticleActivity;
+import com.vklochkov.newshere.adapters.ArticleListAdapter;
+import com.vklochkov.newshere.models.Article;
+import com.vklochkov.newshere.services.NewsAPIService;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
+import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
+
+<span class="fc" id="L56">public class SearchBarFragment extends Fragment {</span>
+<span class="fc" id="L57">    NewsAPIService        newsAPIService = new NewsAPIService();</span>
+<span class="fc" id="L58">    boolean               listening      = false;</span>
+    SpeechToText          speechService;
+    ArticleListAdapter    adapter;
+    MicrophoneHelper      microphoneHelper;
+    MicrophoneInputStream capture;
+
+    ProgressBar          spinner;
+    ListView             articleListView;
+    EditText             searchText;
+    Button               searchBtn;
+    Calendar             calendar;
+    EditText             sortDateFrom;
+    EditText             sortDateTo;
+    EditText             activeEditText;
+    RadioGroup           sortByRadioGroup;
+<span class="fc" id="L73">    String               sortByKey = &quot;publishedAt&quot;;</span>
+<span class="fc" id="L74">    String               sortFrom = &quot;&quot;;</span>
+<span class="fc" id="L75">    String               sortTo = &quot;&quot;;</span>
+    ActionButton         speakBtn;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+<span class="fc" id="L80">        View view = inflater.inflate(R.layout.search_bar_fragment, container, false);</span>
+
+<span class="fc" id="L82">        microphoneHelper = new MicrophoneHelper(getActivity());</span>
+<span class="fc" id="L83">        speechService = initSpeechToTextService();</span>
+
+<span class="fc" id="L85">        spinner          = view.findViewById(R.id.progress_bar);</span>
+<span class="fc" id="L86">        articleListView  = view.findViewById(R.id.article_list);</span>
+<span class="fc" id="L87">        searchText       = view.findViewById(R.id.searchText);</span>
+<span class="fc" id="L88">        searchBtn        = view.findViewById(R.id.searchBtn);</span>
+<span class="fc" id="L89">        calendar         = Calendar.getInstance();</span>
+<span class="fc" id="L90">        sortDateFrom     = view.findViewById(R.id.sort_date_from);</span>
+<span class="fc" id="L91">        sortDateTo       = view.findViewById(R.id.sort_date_to);</span>
+<span class="fc" id="L92">        sortByRadioGroup = view.findViewById(R.id.radioGroup);</span>
+<span class="fc" id="L93">        speakBtn         = view.findViewById(R.id.speak_btn);</span>
+
+<span class="fc" id="L95">        speakBtn.setShadowResponsiveEffectEnabled(true);</span>
+<span class="fc" id="L96">        spinner.setVisibility(View.GONE);</span>
+
+<span class="fc" id="L98">        bindSearchButton();</span>
+<span class="fc" id="L99">        bindFilterButtons();</span>
+<span class="fc" id="L100">        setRadioBtnOnClickListener();</span>
+<span class="fc" id="L101">        bindHoldSpeakBtn();</span>
+
+<span class="fc" id="L103">        return view;</span>
+    }
+
+    private void bindSearchButton () {
+<span class="fc" id="L107">        searchBtn.setOnClickListener(new View.OnClickListener() {</span>
+            @Override
+            public void onClick (View v) {
+<span class="fc" id="L110">                View view = getActivity().getCurrentFocus();</span>
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">                if (view != null) {</span>
+<span class="fc" id="L112">                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);</span>
+<span class="fc" id="L113">                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);</span>
+                }
+
+<span class="fc" id="L116">                final String request = searchText.getText().toString();</span>
+
+<span class="fc" id="L118">                Observable.create(new ObservableOnSubscribe&lt;ArrayList&lt;Article&gt;&gt;() {</span>
+                    @Override
+                    public void subscribe (@NonNull ObservableEmitter&lt;ArrayList&lt;Article&gt;&gt; emitter) throws Exception {
+<span class="fc" id="L121">                        emitter.onNext(newsAPIService.getArticlesByRequest(request, 1, sortByKey, sortFrom, sortTo));</span>
+<span class="fc" id="L122">                        emitter.onComplete();</span>
+<span class="fc" id="L123">                    }</span>
+                })
+<span class="fc" id="L125">                    .subscribeOn(Schedulers.newThread())</span>
+<span class="fc" id="L126">                    .observeOn(AndroidSchedulers.mainThread())</span>
+<span class="fc" id="L127">                    .subscribe(new Observer&lt;ArrayList&lt;Article&gt;&gt;() {</span>
+                        @Override
+                        public void onSubscribe (Disposable d) {
+<span class="fc" id="L130">                            spinner.setVisibility(View.VISIBLE);</span>
+<span class="fc" id="L131">                            articleListView.setAdapter(null);</span>
+<span class="fc" id="L132">                        }</span>
+
+                        @Override
+                        public void onNext (ArrayList&lt;Article&gt; articleArrayList) {
+<span class="fc" id="L136">                            addArticlesToList(articleArrayList, articleListView);</span>
+<span class="fc" id="L137">                        }</span>
+
+                        @Override
+                        public void onError (Throwable e) {
+<span class="nc" id="L141">                            e.printStackTrace();</span>
+<span class="nc" id="L142">                            Log.e(&quot;ERROR&quot;, e.getMessage());</span>
+<span class="nc" id="L143">                        }</span>
+
+                        @Override
+                        public void onComplete () {
+<span class="fc" id="L147">                            spinner.setVisibility(View.GONE);</span>
+<span class="fc" id="L148">                        }</span>
+                    });
+<span class="fc" id="L150">            }</span>
+        });
+<span class="fc" id="L152">    }</span>
+
+    private void addArticlesToList (final ArrayList&lt;Article&gt; articleArrayList, ListView articleListView) {
+<span class="fc" id="L155">        final Activity self = getActivity();</span>
+<span class="fc" id="L156">        adapter = new ArticleListAdapter(getContext(), articleArrayList);</span>
+<span class="fc" id="L157">        articleListView.setAdapter(adapter);</span>
+
+<span class="fc" id="L159">        articleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {</span>
+            @Override
+            public void onItemClick (AdapterView&lt;?&gt; parent, View view, int position, long id) {
+<span class="nc" id="L162">                Intent intent = new Intent(self, ArticleActivity.class);</span>
+<span class="nc" id="L163">                intent.putExtra(&quot;url&quot;, articleArrayList.get(position).getUrl());</span>
+<span class="nc" id="L164">                intent.putExtra(&quot;title&quot;, &quot;Search&quot;);</span>
+<span class="nc" id="L165">                startActivity(intent);</span>
+<span class="nc" id="L166">            }</span>
+        });
+<span class="fc" id="L168">    }</span>
+
+    private void bindFilterButtons () {
+<span class="fc" id="L171">        final DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {</span>
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+<span class="nc" id="L174">                calendar.set(Calendar.YEAR, year);</span>
+<span class="nc" id="L175">                calendar.set(Calendar.MONTH, monthOfYear);</span>
+<span class="nc" id="L176">                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);</span>
+
+<span class="nc" id="L178">                SimpleDateFormat sdf = new SimpleDateFormat(&quot;MM/dd/yy&quot;, Locale.US);</span>
+<span class="nc" id="L179">                String date = sdf.format(calendar.getTime());</span>
+
+<span class="nc" id="L181">                activeEditText.setText(date);</span>
+
+<span class="nc bnc" id="L183" title="All 2 branches missed.">                if (activeEditText.getId() == R.id.sort_date_from) {</span>
+<span class="nc" id="L184">                    sortFrom = date;</span>
+<span class="nc" id="L185">                    searchBtn.callOnClick();</span>
+<span class="nc bnc" id="L186" title="All 2 branches missed.">                } else if (activeEditText.getId() == R.id.sort_date_to) {</span>
+<span class="nc" id="L187">                    sortTo = date;</span>
+<span class="nc" id="L188">                    searchBtn.callOnClick();</span>
+                }
+<span class="nc" id="L190">            }</span>
+        };
+
+<span class="fc" id="L193">        setDatePickerDialog(sortDateFrom, listener);</span>
+<span class="fc" id="L194">        setDatePickerDialog(sortDateTo, listener);</span>
+<span class="fc" id="L195">    }</span>
+
+    private void setDatePickerDialog (final EditText editText, final DatePickerDialog.OnDateSetListener listener) {
+<span class="fc" id="L198">        editText.setOnClickListener(new View.OnClickListener() {</span>
+            @Override
+            public void onClick(View v) {
+<span class="nc" id="L201">                activeEditText = editText;</span>
+
+<span class="nc" id="L203">                new DatePickerDialog(</span>
+<span class="nc" id="L204">                    getContext(),</span>
+                    listener,
+<span class="nc" id="L206">                    calendar.get(Calendar.YEAR),</span>
+<span class="nc" id="L207">                    calendar.get(Calendar.MONTH),</span>
+<span class="nc" id="L208">                    calendar.get(Calendar.DAY_OF_MONTH)</span>
+<span class="nc" id="L209">                ).show();</span>
+<span class="nc" id="L210">            }</span>
+        });
+<span class="fc" id="L212">    }</span>
+
+    private void setRadioBtnOnClickListener () {
+<span class="fc" id="L215">        sortByRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {</span>
+            @Override
+            public void onCheckedChanged (RadioGroup group, int checkedId) {
+<span class="nc" id="L218">                RadioButton button = group.findViewById(checkedId);</span>
+
+<span class="nc bnc" id="L220" title="All 4 branches missed.">                if (null != button &amp;&amp; checkedId &gt; -1){</span>
+<span class="nc bnc" id="L221" title="All 4 branches missed.">                    switch (group.indexOfChild(button)) {</span>
+                        case 1:
+<span class="nc" id="L223">                            sortByKey = &quot;popularity&quot;;</span>
+<span class="nc" id="L224">                            break;</span>
+
+                        case 2:
+<span class="nc" id="L227">                            sortByKey = &quot;relevancy&quot;;</span>
+<span class="nc" id="L228">                            break;</span>
+
+                        case 3:
+<span class="nc" id="L231">                            sortByKey = &quot;publishedAt&quot;;</span>
+<span class="nc" id="L232">                            break;</span>
+
+                        default:
+<span class="nc" id="L235">                            sortByKey = &quot;publishedAt&quot;;</span>
+                    }
+
+<span class="nc" id="L238">                    searchBtn.callOnClick();</span>
+                }
+<span class="nc" id="L240">            }</span>
+        });
+<span class="fc" id="L242">    }</span>
+
+    private SpeechToText initSpeechToTextService() {
+<span class="fc" id="L245">        SpeechToText service = new SpeechToText();</span>
+<span class="fc" id="L246">        String username = getString(R.string.speech_text_username);</span>
+<span class="fc" id="L247">        String password = getString(R.string.speech_text_password);</span>
+<span class="fc" id="L248">        service.setUsernameAndPassword(username, password);</span>
+<span class="fc" id="L249">        service.setEndPoint(getString(R.string.speech_text_url));</span>
+<span class="fc" id="L250">        return service;</span>
+    }
+
+    private void bindHoldSpeakBtn () {
+<span class="fc" id="L254">        speakBtn.setOnClickListener(new View.OnClickListener() {</span>
+            @Override
+            public void onClick (View v) {
+<span class="nc bnc" id="L257" title="All 2 branches missed.">                if (!listening) {</span>
+<span class="nc" id="L258">                    Toast.makeText(v.getContext(), &quot;Speak now.&quot;, Toast.LENGTH_LONG).show();</span>
+<span class="nc" id="L259">                    speakBtn.setActivated(true);</span>
+<span class="nc" id="L260">                    capture = microphoneHelper.getInputStream(true);</span>
+<span class="nc" id="L261">                    new Thread(new Runnable() {</span>
+                        @Override
+                        public void run() {
+                            try {
+<span class="nc" id="L265">                                speechService.recognizeUsingWebSocket(capture, getRecognizeOptions(),</span>
+                                    new MicrophoneRecognizeDelegate());
+<span class="nc" id="L267">                            } catch (Exception e) {</span>
+<span class="nc" id="L268">                                showError(e);</span>
+<span class="nc" id="L269">                            }</span>
+<span class="nc" id="L270">                        }</span>
+<span class="nc" id="L271">                    }).start();</span>
+<span class="nc" id="L272">                    listening = true;</span>
+                } else {
+<span class="nc" id="L274">                    speakBtn.setActivated(false);</span>
+<span class="nc" id="L275">                    microphoneHelper.closeInputStream();</span>
+<span class="nc" id="L276">                    listening = false;</span>
+                }
+<span class="nc" id="L278">            }</span>
+        });
+<span class="fc" id="L280">    }</span>
+
+
+    private void showError(final Exception e) {
+<span class="nc" id="L284">        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();</span>
+<span class="nc" id="L285">        e.printStackTrace();</span>
+<span class="nc" id="L286">    }</span>
+
+
+    private RecognizeOptions getRecognizeOptions() {
+<span class="nc" id="L290">        return new RecognizeOptions.Builder().contentType(ContentType.OPUS.toString())</span>
+<span class="nc" id="L291">            .model(&quot;en-US_BroadbandModel&quot;).interimResults(true).inactivityTimeout(2000).build();</span>
+    }
+
+<span class="nc" id="L294">    private class MicrophoneRecognizeDelegate extends BaseRecognizeCallback {</span>
+        @Override
+        public void onTranscription(SpeechResults speechResults) {
+<span class="nc" id="L297">            Log.d(&quot;Recognized text&quot;, speechResults.toString());</span>
+<span class="nc bnc" id="L298" title="All 4 branches missed.">            if (speechResults.getResults() != null &amp;&amp; !speechResults.getResults().isEmpty()) {</span>
+<span class="nc" id="L299">                final String text = speechResults.getResults().get(0).getAlternatives().get(0).getTranscript();</span>
+
+<span class="nc" id="L301">                getActivity().runOnUiThread(new Runnable() {</span>
+                    public void run() {
+<span class="nc" id="L303">                        searchText.setText(text);</span>
+<span class="nc" id="L304">                        searchBtn.callOnClick();</span>
+<span class="nc" id="L305">                    }</span>
+                });
+            }
+<span class="nc" id="L308">        }</span>
+
+        @Override
+        public void onError(Exception e) {
+<span class="nc" id="L312">            showError(e);</span>
+<span class="nc" id="L313">        }</span>
+
+        @Override
+        public void onDisconnected() {
+
+<span class="nc" id="L318">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span>Generated by the Android Gradle plugin 3.0.0</div></body></html>

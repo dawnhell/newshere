@@ -1,0 +1,4 @@
+#Tue Apr 17 22:12:12 MSK 2018
+base.0=/home/vladislav/Projects/Repos/newshere/app/build/intermediates/transforms/dexMerger/debug/113
+renamed.0=classes.dex
+file.0=/home/vladislav/Projects/Repos/newshere/app/build/intermediates/transforms/dexMerger/debug/113/classes.dex

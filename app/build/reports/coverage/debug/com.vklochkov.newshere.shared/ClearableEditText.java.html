@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ClearableEditText.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">com.vklochkov.newshere.shared</a> &gt; <span class="el_source">ClearableEditText.java</span></div><h1>ClearableEditText.java</h1><pre class="source lang-java linenums">package com.vklochkov.newshere.shared;
+
+import android.content.Context;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.support.v7.widget.AppCompatEditText;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.View;
+
+import com.vklochkov.newshere.R;
+
+public class ClearableEditText extends AppCompatEditText {
+<span class="pc" id="L16">    private Drawable imgCloseButton = getResources().getDrawable(R.drawable.close_icon);</span>
+
+    public ClearableEditText(Context context) {
+<span class="nc" id="L19">        super(context);</span>
+<span class="nc" id="L20">        init();</span>
+<span class="nc" id="L21">    }</span>
+
+    public ClearableEditText(Context context, AttributeSet attrs, int defStyle) {
+<span class="nc" id="L24">        super(context, attrs, defStyle);</span>
+<span class="nc" id="L25">        init();</span>
+<span class="nc" id="L26">    }</span>
+
+    public ClearableEditText(Context context, AttributeSet attrs) {
+<span class="fc" id="L29">        super(context, attrs);</span>
+<span class="fc" id="L30">        init();</span>
+<span class="fc" id="L31">    }</span>
+
+    void init() {
+<span class="fc" id="L34">        imgCloseButton.setBounds(0, 0, imgCloseButton.getIntrinsicWidth(), imgCloseButton.getIntrinsicHeight());</span>
+
+<span class="fc" id="L36">        handleClearButton();</span>
+
+<span class="fc" id="L38">        this.setOnTouchListener(new OnTouchListener() {</span>
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+<span class="fc" id="L41">                ClearableEditText et = ClearableEditText.this;</span>
+
+<span class="pc bpc" id="L43" title="1 of 2 branches missed.">                if (et.getCompoundDrawables()[2] == null) {</span>
+<span class="fc" id="L44">                    return false;</span>
+                }
+
+<span class="nc bnc" id="L47" title="All 2 branches missed.">                if (event.getAction() != MotionEvent.ACTION_UP) {</span>
+<span class="nc" id="L48">                    return false;</span>
+                }
+
+<span class="nc bnc" id="L51" title="All 2 branches missed.">                if (event.getX() &gt; et.getWidth() - et.getPaddingRight() - imgCloseButton.getIntrinsicWidth()) {</span>
+<span class="nc" id="L52">                    et.setText(&quot;&quot;);</span>
+<span class="nc" id="L53">                    ClearableEditText.this.handleClearButton();</span>
+                }
+<span class="nc" id="L55">                return false;</span>
+            }
+        });
+
+<span class="fc" id="L59">        this.addTextChangedListener(new TextWatcher() {</span>
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+<span class="fc" id="L62">                ClearableEditText.this.handleClearButton();</span>
+<span class="fc" id="L63">            }</span>
+
+            @Override
+            public void afterTextChanged(Editable arg) {
+
+<span class="fc" id="L68">            }</span>
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+<span class="fc" id="L72">            }</span>
+        });
+<span class="fc" id="L74">    }</span>
+
+    void handleClearButton() {
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        if (this.getText().toString().equals(&quot;&quot;)) {</span>
+<span class="fc" id="L78">            this.setCompoundDrawables(this.getCompoundDrawables()[0], this.getCompoundDrawables()[1], null, this.getCompoundDrawables()[3]);</span>
+        }
+        else {
+<span class="fc" id="L81">            this.setCompoundDrawables(this.getCompoundDrawables()[0], this.getCompoundDrawables()[1], imgCloseButton, this.getCompoundDrawables()[3]);</span>
+        }
+<span class="fc" id="L83">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span>Generated by the Android Gradle plugin 3.0.0</div></body></html>
