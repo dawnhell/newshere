@@ -1,4 +1,4 @@
-#Sun Apr 15 13:10:39 MSK 2018
-base.0=/home/vladislav/Projects/Repos/newshere/app/build/intermediates/transforms/dexMerger/debug/97
+#Thu Apr 19 18:25:19 MSK 2018
+base.0=/home/vladislav/Projects/Repos/newshere/app/build/intermediates/transforms/dexMerger/debug/116
 renamed.0=classes.dex
-file.0=/home/vladislav/Projects/Repos/newshere/app/build/intermediates/transforms/dexMerger/debug/97/classes.dex
+file.0=/home/vladislav/Projects/Repos/newshere/app/build/intermediates/transforms/dexMerger/debug/116/classes.dex

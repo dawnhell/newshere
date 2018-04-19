@@ -92,21 +92,6 @@
             ]
         },
         {
-            "outputFile": "/home/vladislav/Projects/Repos/newshere/app/build/intermediates/res/merged/debug/values-ne_values-ne.arsc.flat",
-            "map": [
-                {
-                    "source": "/home/vladislav/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/f906acb2924f6d5d7f759876d2e8cc69/res/values-ne/values-ne.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,160,268,391,495,603,694,801,928,1022,1112,1200,1310,1426,1529,1644,1746,1861,1992,2104,2190",
-                        "endColumns": "104,107,122,103,107,90,106,126,93,89,87,109,115,102,114,101,114,130,111,85,100",
-                        "endOffsets": "155,263,386,490,598,689,796,923,1017,1107,1195,1305,1421,1524,1639,1741,1856,1987,2099,2185,2286"
-                    }
-                }
-            ]
-        },
-        {
             "outputFile": "/home/vladislav/Projects/Repos/newshere/app/build/intermediates/res/merged/debug/values-pa_values-pa.arsc.flat",
             "map": [
                 {
@@ -117,6 +102,21 @@
                         "startOffsets": "55,161,269,392,497,602,688,788,901,978,1054,1133,1234,1335,1432,1541,1640,1750,1872,1972,2051",
                         "endColumns": "105,107,122,104,104,85,99,112,76,75,78,100,100,96,108,98,109,121,99,78,100",
                         "endOffsets": "156,264,387,492,597,683,783,896,973,1049,1128,1229,1330,1427,1536,1635,1745,1867,1967,2046,2147"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/home/vladislav/Projects/Repos/newshere/app/build/intermediates/res/merged/debug/values-ne_values-ne.arsc.flat",
+            "map": [
+                {
+                    "source": "/home/vladislav/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/f906acb2924f6d5d7f759876d2e8cc69/res/values-ne/values-ne.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,160,268,391,495,603,694,801,928,1022,1112,1200,1310,1426,1529,1644,1746,1861,1992,2104,2190",
+                        "endColumns": "104,107,122,103,107,90,106,126,93,89,87,109,115,102,114,101,114,130,111,85,100",
+                        "endOffsets": "155,263,386,490,598,689,796,923,1017,1107,1195,1305,1421,1524,1639,1741,1856,1987,2099,2185,2286"
                     }
                 }
             ]
@@ -261,6 +261,40 @@
             ]
         },
         {
+            "outputFile": "/home/vladislav/Projects/Repos/newshere/app/build/intermediates/res/merged/debug/values-land_values-land.arsc.flat",
+            "map": [
+                {
+                    "source": "/home/vladislav/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/6d72d0c45cfaeaf17890a93fdc7ed8d8/res/values-land/values-land.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "232"
+                    },
+                    "to": {
+                        "startLines": "6",
+                        "startColumns": "4",
+                        "startOffsets": "328",
+                        "endLines": "9",
+                        "endColumns": "12",
+                        "endOffsets": "505"
+                    }
+                },
+                {
+                    "source": "/home/vladislav/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/f906acb2924f6d5d7f759876d2e8cc69/res/values-land/values-land.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,125,189,260",
+                        "endColumns": "69,63,70,67",
+                        "endOffsets": "120,184,255,323"
+                    }
+                }
+            ]
+        },
+        {
             "outputFile": "/home/vladislav/Projects/Repos/newshere/app/build/intermediates/res/merged/debug/values-sw600dp-v13_values-sw600dp-v13.arsc.flat",
             "map": [
                 {
@@ -307,40 +341,6 @@
                         "endLines": "10,11,12,13,14,15,16,17,19,23",
                         "endColumns": "59,69,70,71,57,57,105,63,62,12",
                         "endOffsets": "666,736,807,879,937,995,1101,1165,1270,1452"
-                    }
-                }
-            ]
-        },
-        {
-            "outputFile": "/home/vladislav/Projects/Repos/newshere/app/build/intermediates/res/merged/debug/values-land_values-land.arsc.flat",
-            "map": [
-                {
-                    "source": "/home/vladislav/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/6d72d0c45cfaeaf17890a93fdc7ed8d8/res/values-land/values-land.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endLines": "5",
-                        "endColumns": "12",
-                        "endOffsets": "232"
-                    },
-                    "to": {
-                        "startLines": "6",
-                        "startColumns": "4",
-                        "startOffsets": "328",
-                        "endLines": "9",
-                        "endColumns": "12",
-                        "endOffsets": "505"
-                    }
-                },
-                {
-                    "source": "/home/vladislav/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/f906acb2924f6d5d7f759876d2e8cc69/res/values-land/values-land.xml",
-                    "from": {
-                        "startLines": "2,3,4,5",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "55,125,189,260",
-                        "endColumns": "69,63,70,67",
-                        "endOffsets": "120,184,255,323"
                     }
                 }
             ]
@@ -640,21 +640,6 @@
             ]
         },
         {
-            "outputFile": "/home/vladislav/Projects/Repos/newshere/app/build/intermediates/res/merged/debug/values-es-rUS_values-es-rUS.arsc.flat",
-            "map": [
-                {
-                    "source": "/home/vladislav/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/f906acb2924f6d5d7f759876d2e8cc69/res/values-es-rUS/values-es-rUS.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,175,283,406,515,623,708,809,932,1017,1099,1181,1293,1393,1494,1602,1709,1816,1938,2038,2120",
-                        "endColumns": "119,107,122,108,107,84,100,122,84,81,81,111,99,100,107,106,106,121,99,81,100",
-                        "endOffsets": "170,278,401,510,618,703,804,927,1012,1094,1176,1288,1388,1489,1597,1704,1811,1933,2033,2115,2216"
-                    }
-                }
-            ]
-        },
-        {
             "outputFile": "/home/vladislav/Projects/Repos/newshere/app/build/intermediates/res/merged/debug/values_values.arsc.flat",
             "map": [
                 {
@@ -846,16 +831,16 @@
             ]
         },
         {
-            "outputFile": "/home/vladislav/Projects/Repos/newshere/app/build/intermediates/res/merged/debug/values-v13_values-v13.arsc.flat",
+            "outputFile": "/home/vladislav/Projects/Repos/newshere/app/build/intermediates/res/merged/debug/values-es-rUS_values-es-rUS.arsc.flat",
             "map": [
                 {
-                    "source": "/home/vladislav/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/f906acb2924f6d5d7f759876d2e8cc69/res/values-v13/values-v13.xml",
+                    "source": "/home/vladislav/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/f906acb2924f6d5d7f759876d2e8cc69/res/values-es-rUS/values-es-rUS.xml",
                     "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "58",
-                        "endOffsets": "109"
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,175,283,406,515,623,708,809,932,1017,1099,1181,1293,1393,1494,1602,1709,1816,1938,2038,2120",
+                        "endColumns": "119,107,122,108,107,84,100,122,84,81,81,111,99,100,107,106,106,121,99,81,100",
+                        "endOffsets": "170,278,401,510,618,703,804,927,1012,1094,1176,1288,1388,1489,1597,1704,1811,1933,2033,2115,2216"
                     }
                 }
             ]
@@ -871,6 +856,21 @@
                         "startOffsets": "55,166,274,397,512,623,705,811,941,1024,1104,1190,1300,1412,1515,1626,1733,1840,1962,2061,2147",
                         "endColumns": "110,107,122,114,110,81,105,129,82,79,85,109,111,102,110,106,106,121,98,85,100",
                         "endOffsets": "161,269,392,507,618,700,806,936,1019,1099,1185,1295,1407,1510,1621,1728,1835,1957,2056,2142,2243"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/home/vladislav/Projects/Repos/newshere/app/build/intermediates/res/merged/debug/values-v13_values-v13.arsc.flat",
+            "map": [
+                {
+                    "source": "/home/vladislav/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/f906acb2924f6d5d7f759876d2e8cc69/res/values-v13/values-v13.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "58",
+                        "endOffsets": "109"
                     }
                 }
             ]
