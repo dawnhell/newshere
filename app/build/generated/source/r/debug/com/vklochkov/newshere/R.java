@@ -4057,11 +4057,10 @@ public final class R {
     public static final int sort_date_from=0x7f0e0032;
     public static final int sort_date_hint=0x7f0e0033;
     public static final int sort_date_to=0x7f0e0034;
-    public static final int speak_btn_title=0x7f0e0035;
-    public static final int speech_text_password=0x7f0e0036;
-    public static final int speech_text_url=0x7f0e0037;
-    public static final int speech_text_username=0x7f0e0038;
-    public static final int status_bar_notification_info_overflow=0x7f0e0039;
+    public static final int speech_text_password=0x7f0e0035;
+    public static final int speech_text_url=0x7f0e0036;
+    public static final int speech_text_username=0x7f0e0037;
+    public static final int status_bar_notification_info_overflow=0x7f0e0038;
   }
   public static final class style {
     public static final int AlertDialog_AppCompat=0x7f0f0000;

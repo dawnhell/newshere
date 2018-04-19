@@ -1224,11 +1224,10 @@ int string sort_by_title 0x7f0e0031
 int string sort_date_from 0x7f0e0032
 int string sort_date_hint 0x7f0e0033
 int string sort_date_to 0x7f0e0034
-int string speak_btn_title 0x7f0e0035
-int string speech_text_password 0x7f0e0036
-int string speech_text_url 0x7f0e0037
-int string speech_text_username 0x7f0e0038
-int string status_bar_notification_info_overflow 0x7f0e0039
+int string speech_text_password 0x7f0e0035
+int string speech_text_url 0x7f0e0036
+int string speech_text_username 0x7f0e0037
+int string status_bar_notification_info_overflow 0x7f0e0038
 int style AlertDialog_AppCompat 0x7f0f0000
 int style AlertDialog_AppCompat_Light 0x7f0f0001
 int style Animation_AppCompat_Dialog 0x7f0f0002
