@@ -255,7 +255,7 @@ public class SearchBarFragment extends Fragment {
             @Override
             public void onClick (View v) {
                 if (!listening) {
-                    Toast.makeText(v.getContext(), "Speak now.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(v.getContext(), "Speak, then press again.", Toast.LENGTH_LONG).show();
                     speakBtn.setActivated(true);
                     capture = microphoneHelper.getInputStream(true);
                     new Thread(new Runnable() {

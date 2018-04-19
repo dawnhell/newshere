@@ -12,7 +12,6 @@
     <string name="sort_date_from">Date from:</string>
     <string name="sort_date_to">Date to:</string>
     <string name="sort_date_hint">Choose date...</string>
-    <string name="speak_btn_title">Hold and speak</string>
 
     <string-array name="news_api_keys">
         <item>reddit-r-all</item>
