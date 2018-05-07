@@ -8,11 +8,12 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:id="@+id/search_bar_fragment"
 >
+
     <com.vklochkov.newshere.shared.ClearableEditText
         android:id="@+id/searchText"
         android:layout_width="240dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="72dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="60dp"
         android:ems="10"
         android:hint="@string/search_bar_text"
         android:inputType="text"
@@ -21,14 +22,14 @@
         app:layout_constraintEnd_toStartOf="@+id/searchBtn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-    />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/searchBtn"
-        android:layout_width="90dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="72dp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="60dp"
         android:text="@string/search_btn_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -60,57 +61,52 @@
 
     <RadioGroup
         android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="310dp"
+        android:layout_height="32dp"
         android:layout_marginTop="120dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-    >
+        app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
             android:id="@+id/sort_by_popularity_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sort_by_popularity"
-            android:textSize="12sp"
-        />
+            android:textSize="14sp" />
 
         <RadioButton
             android:id="@+id/sort_by_relevancy_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sort_by_relevancy"
-            android:textSize="12sp"
-        />
+            android:textSize="14sp" />
 
         <RadioButton
             android:id="@+id/sort_by_published_at_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sort_by_published_at"
-            android:textSize="12sp"
             android:checked="true"
-        />
+            android:text="@string/sort_by_published_at"
+            android:textSize="14sp" />
     </RadioGroup>
 
     <LinearLayout
         android:id="@+id/choose_date_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="310dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-    >
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sort_date_from"
-            android:textSize="14sp"
-        />
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/sort_date_from"
@@ -119,15 +115,13 @@
             android:clickable="true"
             android:focusable="false"
             android:hint="@string/sort_date_hint"
-            android:textSize="14sp"
-        />
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sort_date_to"
-            android:textSize="14sp"
-        />
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/sort_date_to"
@@ -136,8 +130,7 @@
             android:clickable="true"
             android:focusable="false"
             android:hint="@string/sort_date_hint"
-            android:textSize="14sp"
-        />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <com.scalified.fab.ActionButton
@@ -149,8 +142,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         fab:type="DEFAULT"
-        fab:button_color="#3f51b5"
-        fab:button_colorPressed="#002984"
+        fab:button_color="#48a999"
+        fab:button_colorPressed="#004c40"
         fab:image="@drawable/microphone_icon"
         fab:image_size="24dp"
         fab:shadow_color="#757575"

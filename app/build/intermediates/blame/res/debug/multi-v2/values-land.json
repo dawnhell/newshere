@@ -4,7 +4,17 @@
             "outputFile": "/home/vladislav/Projects/Repos/newshere/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-land/values-land.xml",
             "map": [
                 {
-                    "source": "/home/vladislav/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/6d72d0c45cfaeaf17890a93fdc7ed8d8/res/values-land/values-land.xml",
+                    "source": "/home/vladislav/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/eae9a478acb96a719410a1cfa226ce8f/res/values-land/values-land.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,125,189,260",
+                        "endColumns": "69,63,70,67",
+                        "endOffsets": "120,184,255,323"
+                    }
+                },
+                {
+                    "source": "/home/vladislav/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/2394727179819ab709ad55d6f079d5c3/res/values-land/values-land.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -20,16 +30,6 @@
                         "endLines": "9",
                         "endColumns": "12",
                         "endOffsets": "505"
-                    }
-                },
-                {
-                    "source": "/home/vladislav/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/f906acb2924f6d5d7f759876d2e8cc69/res/values-land/values-land.xml",
-                    "from": {
-                        "startLines": "2,3,4,5",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "55,125,189,260",
-                        "endColumns": "69,63,70,67",
-                        "endOffsets": "120,184,255,323"
                     }
                 }
             ]

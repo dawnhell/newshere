@@ -7,20 +7,20 @@
     android:layout_height="match_parent"
     android:id="@+id/news_source_list_fragment"
 >
+
     <TextView
         android:id="@+id/chooseText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
         android:text="@string/choose_news_source_text"
         android:textColor="#424242"
-        android:textSize="20sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-    />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <GridView
         android:id="@+id/grid_view"
