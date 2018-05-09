@@ -7,7 +7,7 @@ public class Article {
     private String imageUrl    = null;
     private String publishedAt = null;
     private String author      = null;
-    private String source    = null;
+    private String source      = null;
 
     public Article(
         String title,

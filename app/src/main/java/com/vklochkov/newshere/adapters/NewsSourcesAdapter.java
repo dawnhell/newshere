@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class NewsSourcesAdapter extends ArrayAdapter<NewsSourceItem> {
     private Context context;
     private int layoutResourceId;
-    private ArrayList<NewsSourceItem> data = new ArrayList<NewsSourceItem>();
+    private ArrayList<NewsSourceItem> data;
 
     public NewsSourcesAdapter (Context context, int layoutResourceId, ArrayList<NewsSourceItem> data) {
         super(context, layoutResourceId, data);

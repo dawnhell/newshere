@@ -1,7 +1,7 @@
-#Mon May 07 21:29:28 MSK 2018
-base.0=/home/vladislav/Projects/Repos/newshere/app/build/intermediates/transforms/dexMerger/debug/12
+#Mon May 07 21:35:33 MSK 2018
+base.0=/home/vladislav/Projects/Repos/newshere/app/build/intermediates/transforms/dexMerger/debug/27
 path.1=classes.dex
 renamed.1=classes2.dex
 path.0=classes.dex
 renamed.0=classes.dex
-base.1=/home/vladislav/Projects/Repos/newshere/app/build/intermediates/transforms/dexMerger/debug/11
+base.1=/home/vladislav/Projects/Repos/newshere/app/build/intermediates/transforms/dexMerger/debug/26

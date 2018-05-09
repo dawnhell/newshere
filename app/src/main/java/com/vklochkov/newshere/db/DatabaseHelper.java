@@ -10,16 +10,16 @@ import android.database.sqlite.SQLiteDatabase;
 import com.vklochkov.newshere.models.Article;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME                = "Articles.db";
-    public static final String ARTICLES_TABLE_NAME          = "articles";
-    public static final String ARTICLES_COLUMN_ID           = "id";
-    public static final String ARTICLES_COLUMN_TITLE        = "title";
-    public static final String ARTICLES_COLUMN_DESCRIPTION  = "description";
-    public static final String ARTICLES_COLUMN_URL          = "url";
-    public static final String ARTICLES_COLUMN_URL_TO_IMAGE = "urlToImage";
-    public static final String ARTICLES_COLUMN_PUBLISHED_AT = "publishedAt";
-    public static final String ARTICLES_COLUMN_AUTHOR       = "author";
-    public static final String ARTICLES_COLUMN_SOURCE       = "source";
+    private static final String DATABASE_NAME                = "Articles.db";
+    private static final String ARTICLES_TABLE_NAME          = "articles";
+    private static final String ARTICLES_COLUMN_ID           = "id";
+    private static final String ARTICLES_COLUMN_TITLE        = "title";
+    private static final String ARTICLES_COLUMN_DESCRIPTION  = "description";
+    private static final String ARTICLES_COLUMN_URL          = "url";
+    private static final String ARTICLES_COLUMN_URL_TO_IMAGE = "urlToImage";
+    private static final String ARTICLES_COLUMN_PUBLISHED_AT = "publishedAt";
+    private static final String ARTICLES_COLUMN_AUTHOR       = "author";
+    private static final String ARTICLES_COLUMN_SOURCE       = "source";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME , null, 1);

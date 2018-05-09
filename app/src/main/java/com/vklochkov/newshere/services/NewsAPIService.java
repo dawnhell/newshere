@@ -1,7 +1,5 @@
 package com.vklochkov.newshere.services;
 
-import android.util.Log;
-
 import com.vklochkov.newshere.models.Article;
 
 import org.json.JSONArray;
@@ -42,7 +40,7 @@ public class NewsAPIService {
         return response.body().string();
     }
 
-    public ArrayList<Article> parseArticlesFromString (String result, String source) {
+    private ArrayList<Article> parseArticlesFromString (String result, String source) {
         ArrayList<Article> articleArrayList = new ArrayList<Article>();
 
         try {
